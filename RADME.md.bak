@@ -8,9 +8,6 @@ myotrs-app
    npm install -g cordova ionic
 * 为了使用gulp，还需要执行：npm install gulp -g
 * 代码编辑工具推荐brackets
-* ionic参考文档主要有
-http://codepen.io/ionic/public-list/<br>
-http://ionicframework.com/docs/
 ###下载依赖包
 * 在myotrs-app目录下执行：npm install 
 ###启动程序
