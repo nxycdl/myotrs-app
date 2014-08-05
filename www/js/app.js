@@ -20,7 +20,7 @@ angular.module('otrsapp', ['ionic', 'otrsapp.authservices', 'otrsapp.controllers
         console.log('logging ');
         if (AuthService.isLoggedIn($window)) {
             //登录dl
-            console.log('logging');
+            console.log('having logging');
             //event.preventDefaul t();
         } else {
             //未登录

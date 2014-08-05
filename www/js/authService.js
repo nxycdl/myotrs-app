@@ -8,8 +8,11 @@ angular.module('otrsapp.authservices', []).factory('AuthService', function ($q, 
             return true;
         },
         isLoggedIn: function ($window) {
-            console.log('call is LoggedIn');
-            return true;
+            if (typeof $window.localStorage.auth == 'undefined') {
+                return false;
+            } else {
+                return true;
+            }
         },
         logout: function ($window) {
             console.log('logout');

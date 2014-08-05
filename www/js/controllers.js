@@ -8,7 +8,6 @@ angular.module('otrsapp.controllers', [])
     username: '',
     password: ''
   };
-  console.log(credentials);
   $scope.credentials.username = $window.localStorage.username;
   $scope.login = function (credentials) {
     AuthService.login($http, credentials).then(function (data) {
