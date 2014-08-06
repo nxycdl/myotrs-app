@@ -1,10 +1,45 @@
 //Auth服务实现，业务逻辑
 'use strict';
-<<<<<<< HEAD
 angular.module('otrsapp.authservices', []).factory('AuthService', function ($q, CommonService) {
   return {
     login: function ($http, credentials) {
-      return true;
+      var deferred = $q.defer();
+      var request = $http({
+        method: "post",
+        url: wsUrl,
+        headers: {
+          'Content-Type': 'text/xml;charset=UTF-8',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        },
+        data: '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" ' +
+          'xmlns:tic="http://www.otrs.org/TicketConnector/"> ' +
+          '<soapenv:Header/>' +
+          '<soapenv:Body>' +
+          '<SessionCreate>' +
+          '  <tic:CustomerUserLogin>' + credentials.username + '</tic:CustomerUserLogin>' +
+          '  <tic:Password>' + credentials.password + '</tic:Password>' +
+          '</SessionCreate>' +
+          '</soapenv:Body>' +
+          '</soapenv:Envelope>'
+      });
+      request.success(
+        function (html) {
+          var domParser = new DOMParser();
+          var xml = domParser.parseFromString(html, 'text/xml')
+            .childNodes[0]
+            .childNodes[0]
+            .childNodes[0]
+            .childNodes[0];
+          if (xml.nodeName == 'Error') {
+            deferred.reject(CommonService.xml2json(xml));
+          } else {
+            deferred.resolve(CommonService.xml2json(xml));
+          }
+        }
+      ).error(function (status) {
+        deferred.reject(status);
+      });
+      return deferred.promise;
     },
     isLoggedIn: function ($window) {
       console.log('dddddd');
@@ -15,26 +50,9 @@ angular.module('otrsapp.authservices', []).factory('AuthService', function ($q, 
       }
     },
     logout: function ($window) {
-      return true;
-=======
-angular.module('otrsapp.authservices', []).factory('AuthService', function ($q, CommServices) {
-    console.log('authservices module');
-    return {
-        login: function ($http, credentials) {
-            console.log('call login');
-            return true;
-        },
-        isLoggedIn: function ($window) {
-            if (typeof $window.localStorage.auth == 'undefined') {
-                return false;
-            } else {
-                return true;
-            }
-        },
-        logout: function ($window) {
-            console.log('logout');
-            return true;
-        }
->>>>>>> 3991f13371bad973e69a8df1b661fe1c61f81474
+      if (typeof $window.localStorage.auth != 'undefined') {
+        delete $window.localStorage.auth;
+      }
     }
+  }
 });
