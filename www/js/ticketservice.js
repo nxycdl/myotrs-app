@@ -1,5 +1,5 @@
 'use strict';
-angular.module('otrsapp.ticketservices', []).factory('TicketService', function ($q, $window) {
+angular.module('otrsapp.ticketservices', []).factory('TicketService', function ($q, $window, CommonService, AuthService) {
   var getByid = function ($http, ticketId, sessionId, ifAll) {
     var deferred = $q.defer();
     var request = $http({
@@ -164,7 +164,7 @@ angular.module('otrsapp.ticketservices', []).factory('TicketService', function (
     return deferred.promise;
   };
   return {
-    getByStartAndEnd: function ($http, sessionId, customid, start, end, step) {
+    getByStartAndEnd: function ($http, sessionId, customId, start, end, step) {
       var deferred = $q.defer();
       var ticketsearch = [];
       getAll($http, sessionId, customId).then(function (jsonObject) {

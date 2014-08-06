@@ -3,7 +3,7 @@
 
 var wsUrl = "http://61.133.217.140:808/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector";
 //angular.module('otrsapp', ['ionic', 'abc.authservices', 'abc.loginControllers'])
-angular.module('otrsapp', ['ionic', 'otrsapp.authservices', 'otrsapp.controllers', 'otrsapp.common'])
+angular.module('otrsapp', ['ionic', 'otrsapp.authservices', 'otrsapp.controllers', 'otrsapp.common', 'otrsapp.ticketservices'])
   .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     console.log('ok');
     $stateProvider
@@ -30,7 +30,6 @@ angular.module('otrsapp', ['ionic', 'otrsapp.authservices', 'otrsapp.controllers
     })
   })
 //登录拦截器
-//.run(function ($rootScope, $window, $location, AuthService) {
 .run(function ($rootScope, $window, $location, AuthService) {
   $rootScope.$on("$locationChangeStart", function (event, next, current) {
     console.log('logging ');
