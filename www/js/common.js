@@ -1,7 +1,7 @@
 //XML转JSON
 'use strict';
 angular.module('otrsapp.common', [])
-  .factory('CommService', function () {
+  .factory('CommServices', function () {
     return {
       xml2json: function (xml) {
         var obj = {};
